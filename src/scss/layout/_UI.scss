@@ -1,0 +1,38 @@
+@use 'base/variables' as v;
+@use 'base/mixins' as m;
+
+.app-container{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  min-height: 100vh;
+
+  @include m.breakpoint{
+    grid-template-columns: 1fr 2fr;
+  }
+  
+  @include m.tablet{
+    grid-template-columns: 1fr;
+  }
+
+  
+  .image{
+    background-image: url('../img/1.webp');
+    background-size: cover;
+    background-position: center center;
+
+    @include m.tablet{
+      min-height: 20rem;
+      height: auto;
+    }
+  }
+
+  .app{
+    width: 90%;
+    margin: 0 auto;
+    padding: 3rem 0;
+
+    @include m.tablet{
+      padding: 0;
+    }
+  }
+}
