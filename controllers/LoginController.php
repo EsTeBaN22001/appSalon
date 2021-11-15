@@ -9,8 +9,52 @@ use MVC\Router;
 class LoginController{
 
   public static function login(Router $router){
+    $alerts = [];
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+      $auth = new User($_POST);
+      $alerts = $auth->validateLogin();
+
+      if(empty($alerts)){
+        // Comprobar que el usuario exista
+        $user = User::where('email', $auth->email);
+        
+        if($user){
+          // Verificar la contraseña
+          if($user->checkPassAndVer($auth->password)){
+            // Autenticar al usuario
+            if(!isset($_SESSION)){
+              session_start();
+            }else{
+              session_unset();
+            }
+
+            $_SESSION['id'] = $user->id;
+            $_SESSION['name'] = $user->name . " " . $user->surname;
+            $_SESSION['email'] = $user->email;
+            $_SESSION['login'] = true;
+
+            // Redireccionar
+            if($user->admin == "1"){
+              $_SESSION['admin'] = $user->admin ?? null;
+              header('Location: /admin');
+            }else{
+              header('Location: /quote');
+            }
+          }
+
+        }else{
+          User::setAlert('error', 'Usuario no encontrado');
+        }
+      }
+    }
+
+    $alerts = User::getalerts();
     
-    $router->render('auth/login');
+    $router->render('auth/login', [
+      'alerts' => $alerts
+    ]);
 
   }
 
