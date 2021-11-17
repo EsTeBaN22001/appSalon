@@ -1,6 +1,8 @@
 <h1 class="page-name">Recuperar contraseña</h1>
 <p class="page-description">Reestablece tu contraseña escribiendo tu correo a continuación</p>
 
+<?php include_once __DIR__ . '/../templates/alerts.php'; ?>
+
 <form action="/forgot" method="POST" class="form">
   <div class="field">
     <label for="email">Email</label>

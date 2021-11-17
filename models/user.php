@@ -73,6 +73,14 @@ class User extends ActiveRecord{
     return self::$alerts;
   }
 
+  // Validar el email para recuperar contraseña
+  public function validateEmail(){
+    if(!$this->email){
+      self::$alerts['error'][] = 'El email es obligatorio';
+    }
+    return self::$alerts;
+  }
+
   // Revisa si el usuario existe
   public function userExists(){
     $query = "SELECT * FROM " . self::$table . " WHERE email = '" . $this->email . "' LIMIT 1";
@@ -84,6 +92,19 @@ class User extends ActiveRecord{
     }
 
     return $result;
+  }
+
+  // Validar contraseña
+  public function validatePassword(){
+    if(!$this->password){
+      self::$alerts['error'][] = 'La contraseña es obligatorio';
+    }
+
+    if(strlen($this->password) < 6){
+      self::$alerts['error'][] = 'La contraseña debe tener al menos 6 caracteres';
+    }
+    
+    return self::$alerts;
   }
 
   // Hashea la contraseña
