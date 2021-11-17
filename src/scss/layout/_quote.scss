@@ -1,9 +1,21 @@
 .section{
+  padding: 4rem 0;
+  display: none;
+
   .text-center{
     text-align: center;
   }
-  &:nth-child(2),
-  &:nth-child(3){
-    display: none;
-  }
+}
+
+.show{
+  display: block;
+}
+
+.hide{
+  display: none;
+}
+
+.opacity0{
+  opacity: 0;
+  visibility: hidden;
 }
