@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../includes/app.php';
 
+use Controllers\ApiController;
 use Controllers\LoginController;
 use Controllers\QuoteController;
 use MVC\Router;
@@ -31,6 +32,10 @@ $router->get('/message', [LoginController::class, 'message']);
 
 // AREA PRIVADA
 $router->get('/quote', [QuoteController::class, 'index']);
+
+// API-REST (quotes)
+$router->get('/api/services', [ApiController::class, 'index']);
+$router->post('/api/quotes', [ApiController::class, 'save']);
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();

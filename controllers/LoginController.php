@@ -187,9 +187,6 @@ class LoginController{
             header('Location: /message');
           }
 
-          // No está registrado
-          // debuguear($user);
-
         }
 
       }

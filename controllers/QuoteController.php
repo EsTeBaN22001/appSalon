@@ -12,7 +12,8 @@ class QuoteController{
     }
 
     $router->render('quote/index', [
-      'name' => $_SESSION['name']
+      'name' => $_SESSION['name'],
+      'id' => $_SESSION['id']
     ]);
   }
 }
