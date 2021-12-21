@@ -2,7 +2,8 @@
 <p class="page-description">Elige tus servicios y coloca tus datos</p>
 
 <div class="bar">
-  <p>Hola: <?= $name; ?></p>
+  <p>Hola: <?= $name ?? ''; ?></p>
+  <a href="/logout" class="button">Cerrar sesión</a>
 </div>
 <div id="app">
   <nav class="tabs">

@@ -10,13 +10,15 @@ const quote = {
   services: []
 }
 
-// LLAMADA A FUNCIONES UTILIZADAS A LO LARGO DEL PROGRAMA
-consultApi();// Función asíncroma para consultar el api creada en php
-clientId(); //Obtiene el nombre del cliente y lo asigna al objeto global de quote
-clientName();// Obtiene el nombre del cliente y lo asigna al objeto global de quote
-selectDate();// Seleccionar y guardar la fecha en el objeto de quote
-selectTime();//Seleccionar y guardar la hora en el objeto de quote
-showSummary();//Mostrar el resumen de la cita
+if($('.tabs')){
+    // LLAMADA A FUNCIONES UTILIZADAS A LO LARGO DEL PROGRAMA
+  consultApi();// Función asíncroma para consultar el api creada en php
+  clientId(); //Obtiene el nombre del cliente y lo asigna al objeto global de quote
+  clientName();// Obtiene el nombre del cliente y lo asigna al objeto global de quote
+  selectDate();// Seleccionar y guardar la fecha en el objeto de quote
+  selectTime();//Seleccionar y guardar la hora en el objeto de quote
+  showSummary();//Mostrar el resumen de la cita
+}
 
 // Función asíncroma para consultar el api creada en php
 async function consultApi(){

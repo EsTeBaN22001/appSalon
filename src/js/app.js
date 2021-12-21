@@ -7,16 +7,18 @@ if(document.querySelector('.app')){
   let step = 1;
   
   // Cambia la sección cuando se presionene los tabs
-  tabs();
+  if($('.tabs')){
+    tabs();
+    // Agrega o quita los botones inferiores del paginador
+    paginatorButtons();
+  
+    // Función para el botón de pagina anterior
+    previousPage();
+  
+    // Función para el botón de pagina siguiente
+    nextPage();
+  }
 
-  // Agrega o quita los botones inferiores del paginador
-  paginatorButtons();
-
-  // Función para el botón de pagina anterior
-  previousPage();
-
-  // Función para el botón de pagina siguiente
-  nextPage();
   
 
   function tabs(){
