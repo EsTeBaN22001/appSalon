@@ -42,11 +42,34 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 3rem;
 
   @include m.tablet{
     flex-direction: column;
+    justify-content: start;
+    max-height: inherit;
   }
   .button{
     @include m.button(v.$rojo, v.$blanco);
+    margin: .3rem 0;
+  }
+}
+
+.services-bar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+
+  a{
+    margin: 0 .3rem;
+  }
+
+  @include m.tablet{
+    flex-direction: column;
+
+    a{
+      margin: .3rem 0;
+    }
   }
 }

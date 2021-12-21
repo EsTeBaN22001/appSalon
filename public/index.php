@@ -6,6 +6,7 @@ use Controllers\AdminController;
 use Controllers\ApiController;
 use Controllers\LoginController;
 use Controllers\QuoteController;
+use Controllers\ServiceController;
 use MVC\Router;
 
 $router = new Router();
@@ -39,6 +40,14 @@ $router->get('/admin', [AdminController::class, 'index']);
 $router->get('/api/services', [ApiController::class, 'index']);
 $router->post('/api/quotes', [ApiController::class, 'save']);
 $router->post('/api/delete-quote', [ApiController::class, 'deleteQuote']);
+
+// CRUD de servicios
+$router->get('/services', [ServiceController::class, 'index']);
+$router->get('/services/create', [ServiceController::class, 'create']);
+$router->post('/services/create', [ServiceController::class, 'create']);
+$router->get('/services/update', [ServiceController::class, 'update']);
+$router->post('/services/update', [ServiceController::class, 'update']);
+$router->post('/services/delete', [ServiceController::class, 'delete']);
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();

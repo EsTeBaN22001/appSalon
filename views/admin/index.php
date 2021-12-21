@@ -1,4 +1,5 @@
 <h1 class="page-name">Panel de administración</h1>
+<p class="page-description">Panel para la administración del sitio</p>
 
 <?php include_once(__DIR__ .  './../templates/bar.php'); ?>
 

@@ -20,3 +20,14 @@
     }
   }
 }
+
+.services{
+  @extend .quotes;
+
+  .actions{
+    margin: 0;
+    .button{
+      margin: 0;
+    }
+  }
+}
