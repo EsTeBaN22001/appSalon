@@ -43,6 +43,21 @@ class ApiController{
     echo json_encode($response);
   }
 
+  public static function deleteQuote(){
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+      $id = $_POST['id'];
+      $id = filter_var($id, FILTER_VALIDATE_INT);
+  
+      $quote = Quote::find($id);
+      $result = $quote->delete();
+      if($result){
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+      }
+    }
+
+  }
+
 }
 
 ?>
