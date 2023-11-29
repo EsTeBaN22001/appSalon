@@ -9,7 +9,7 @@ class ActiveRecord {
 
 	// alerts y Mensajes
 	protected static $alerts = [];
-	
+
 	// Definir la conexión a la BD - includes/database.php
 	public static function setDB($database) {
 		self::$db = $database;
@@ -36,7 +36,7 @@ class ActiveRecord {
 
 		// Iterar los resultados
 		$array = [];
-		while($registry = $result->fetch_assoc()) {
+		while ($registry = $result->fetch_assoc()) {
 			$array[] = static::createObject($registry);
 		}
 
@@ -51,8 +51,8 @@ class ActiveRecord {
 	protected static function createObject($registry) {
 		$object = new static;
 
-		foreach($registry as $key => $value ) {
-			if(property_exists( $object, $key  )) {
+		foreach ($registry as $key => $value) {
+			if (property_exists($object, $key)) {
 				$object->$key = $value;
 			}
 		}
@@ -63,27 +63,30 @@ class ActiveRecord {
 	// Identificar y unir los atributos de la BD
 	public function attributes() {
 		$attributes = [];
-		foreach(static::$columnsDB as $column) {
-			if($column === 'id') continue;
+		foreach (static::$columnsDB as $column) {
+			if ($column === 'id') {
+				continue;
+			}
+
 			$attributes[$column] = $this->$column;
 		}
 		return $attributes;
-}
+	}
 
 	// Sanitizar los datos antes de guardarlos en la BD
 	public function sanitizeAttributes() {
 		$attributes = $this->attributes();
 		$sanitize = [];
-		foreach($attributes as $key => $value ) {
+		foreach ($attributes as $key => $value) {
 			$sanitize[$key] = self::$db->escape_string($value);
 		}
 		return $sanitize;
 	}
 
 	// Sincroniza BD con Objetos en memoria
-	public function syncUp($args=[]) { 
-		foreach($args as $key => $value) {
-			if(property_exists($this, $key) && !is_null($value)) {
+	public function syncUp($args = []) {
+		foreach ($args as $key => $value) {
+			if (property_exists($this, $key) && !is_null($value)) {
 				$this->$key = $value;
 			}
 		}
@@ -92,7 +95,7 @@ class ActiveRecord {
 	// Registros - CRUD
 	public function save() {
 		$result = '';
-		if(!is_null($this->id)) {
+		if (!is_null($this->id)) {
 			// actualizar
 			$result = $this->update();
 		} else {
@@ -111,29 +114,29 @@ class ActiveRecord {
 
 	// Busca un registro por su id
 	public static function find($id) {
-		$query = "SELECT * FROM " . static::$table  ." WHERE id = ${id}";
+		$query = "SELECT * FROM " . static::$table . " WHERE id = ${id}";
 		$result = self::consultSQL($query);
-		return array_shift( $result ) ;
+		return array_shift($result);
 	}
 
-		// Busca un registro por su columna y su valor
-		public static function where($column, $value) {
-			$query = "SELECT * FROM " . static::$table  ." WHERE ${column} = '${value}'";
-			$result = self::consultSQL($query);
-			return array_shift( $result ) ;
-		}
+	// Busca un registro por su columna y su valor
+	public static function where($column, $value) {
+		$query = "SELECT * FROM " . static::$table . " WHERE ${column} = '${value}'";
+		$result = self::consultSQL($query);
+		return array_shift($result);
+	}
 
-		// Consulta plana de SQL (Utilizar cuando los métodos del modelo no son suficientes);
-		public static function SQL($query) {
-			$result = self::consultSQL($query);
-			return $result;
-		}
+	// Consulta plana de SQL (Utilizar cuando los métodos del modelo no son suficientes);
+	public static function SQL($query) {
+		$result = self::consultSQL($query);
+		return $result;
+	}
 
 	// Obtener Registros con cierta cantidad
 	public static function get($limit) {
 		$query = "SELECT * FROM " . static::$table . " LIMIT ${limit}";
 		$result = self::consultSQL($query);
-		return array_shift( $result ) ;
+		return array_shift($result);
 	}
 
 	// crea un nuevo registro
@@ -144,15 +147,17 @@ class ActiveRecord {
 		// Insertar en la base de datos
 		$query = " INSERT INTO " . static::$table . " ( ";
 		$query .= join(', ', array_keys($attributes));
-		$query .= " ) VALUES (' "; 
+		$query .= " ) VALUES (' ";
 		$query .= join("', '", array_values($attributes));
 		$query .= " ') ";
+
+		// debuguear($query);
 
 		// Resultado de la consulta
 		$result = self::$db->query($query);
 		return [
-			'result' =>  $result,
-			'id' => self::$db->insert_id
+			'result' => $result,
+			'id' => self::$db->insert_id,
 		];
 	}
 
@@ -163,15 +168,15 @@ class ActiveRecord {
 
 		// Iterar para ir agregando cada campo de la BD
 		$values = [];
-		foreach($attributes as $key => $value) {
+		foreach ($attributes as $key => $value) {
 			$values[] = "{$key}='{$value}'";
 		}
 
 		// Consulta SQL
-		$query = "UPDATE " . static::$table ." SET ";
-		$query .=  join(', ', $values );
+		$query = "UPDATE " . static::$table . " SET ";
+		$query .= join(', ', $values);
 		$query .= " WHERE id = '" . self::$db->escape_string($this->id) . "' ";
-		$query .= " LIMIT 1 "; 
+		$query .= " LIMIT 1 ";
 
 		// Actualizar BD
 		$result = self::$db->query($query);
@@ -180,7 +185,7 @@ class ActiveRecord {
 
 	// Eliminar un Registro por su ID
 	public function delete() {
-		$query = "DELETE FROM "  . static::$table . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
+		$query = "DELETE FROM " . static::$table . " WHERE id = " . self::$db->escape_string($this->id) . " LIMIT 1";
 		$result = self::$db->query($query);
 		return $result;
 	}
