@@ -1,6 +1,7 @@
 <?php
 
-$db = mysqli_connect('sql300.infinityfree.com', 'if0_35519129', 'I9ETe02UTsFaO', 'if0_35519129_appsalon');
+// $db = mysqli_connect('sql300.infinityfree.com', 'if0_35519129', 'I9ETe02UTsFaO', 'if0_35519129_appsalon');
+$db = mysqli_connect('localhost', 'root', 'root', 'appsalon');
 mysqli_set_charset($db, 'utf8');
 
 if (!$db) {
