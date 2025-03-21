@@ -25,8 +25,8 @@ if ($('.tabs')) {
 // Función asíncroma para consultar el api creada en php
 async function consultApi() {
   try {
-    // const url = 'http://localhost:3000/api/services'
-    const url = 'http://appsalon.infinityfreeapp.com/api/services'
+    const url = 'http://localhost:3000/api/services'
+    // const url = 'http://appsalon.infinityfreeapp.com/api/services'
     const result = await fetch(url)
     const services = await result.json()
 

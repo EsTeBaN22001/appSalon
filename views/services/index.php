@@ -1,7 +1,7 @@
 <h1 class="page-name">Servicios</h1>
 <p class="page-description">Administración de servicios</p>
 
-<?php include_once(__DIR__ . './../templates/bar.php'); ?>
+<?php include_once(__DIR__ . '/../templates/bar.php'); ?>
 
 <ul class="services">
   <?php foreach($services as $service): ?>

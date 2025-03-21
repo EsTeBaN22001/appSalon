@@ -1,7 +1,7 @@
 <h1 class="page-name">Crear nueva cita</h1>
 <p class="page-description">Elige tus servicios y coloca tus datos</p>
 
-<?php include_once(__DIR__ .  './../templates/bar.php'); ?>
+<?php include_once(__DIR__ .  '/../templates/bar.php'); ?>
 
 <div id="app">
   <nav class="tabs">
